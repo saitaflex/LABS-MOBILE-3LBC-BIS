@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Role values are stored in the database and compared in Java
+        (User.ROLE_ADMIN / User.ROLE_EMPLOYEE), so they must never be translated.
+    -->
+    <string-array name="roles" translatable="false">
+        <item>Admin</item>
+        <item>Employee</item>
+    </string-array>
+
+    <!-- Roles offered on the public registration screen (bonus 5: no self-service Admin) -->
+    <string-array name="roles_public" translatable="false">
+        <item>Employee</item>
+    </string-array>
+</resources>

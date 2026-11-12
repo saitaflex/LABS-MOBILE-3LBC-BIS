@@ -1,0 +1,6 @@
+<resources>
+    <!-- Light theme: every screen uses the fixed light ESB palette -->
+    <style name="Base.Theme.TPDM" parent="Theme.Material3.Light.NoActionBar" />
+
+    <style name="Theme.TPDM" parent="Base.Theme.TPDM" />
+</resources>

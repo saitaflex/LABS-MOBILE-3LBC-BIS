@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pink"
+    android:fillViewport="true"
+    tools:context=".HomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/bienvenue_s"
+            android:src="@drawable/img" />
+
+        <!-- Bonus 2: filled in HomeActivity with the "user" extra -->
+        <TextView
+            android:id="@+id/txtWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/bienvenue_s"
+            tools:text="Welcome, admin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/login"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:onClick="goToUsersList"
+                android:text="@string/voir_les_utilisateurs" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/login"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginTop="32dp"
+                android:onClick="goToCreateUser"
+                android:text="@string/creer_un_utilisateur" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/logout"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:onClick="gotosignin"
+                android:text="@string/se_deconnecter" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

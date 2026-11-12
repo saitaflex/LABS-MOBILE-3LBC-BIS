@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/list_background"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    tools:context=".UsersListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/bienvenue_s"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="20dp"
+            android:text="@string/gestion_des_employes"
+            android:textColor="@color/list_title"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <!-- Counter card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_employes"
+                android:textColor="@color/list_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTotalEmployees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/list_accent"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:text="3" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:padding="20dp"
+            android:text="@string/liste_des_employ_s"
+            android:textColor="@color/list_title"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <!-- Bonus 6: filters the cards by first name -->
+        <EditText
+            android:id="@+id/txtSearch"
+            style="@style/input_style"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/bg_light_button"
+            android:hint="@string/rechercher_par_prenom"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="@string/aucun_employ_trouv"
+            android:textColor="@color/list_secondary"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <!-- Filled in Java: one card per employee (UsersListActivity.creerCarte) -->
+        <LinearLayout
+            android:id="@+id/employeesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:padding="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:padding="20dp"
+            android:text="@string/modifier_un_employ"
+            android:textColor="@color/list_title"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <!-- Edit form -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/white"
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- The CIN is the primary key: shown but not editable -->
+            <EditText
+                android:id="@+id/id"
+                style="@style/input_style"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:enabled="false"
+                android:hint="@string/cin_choisir_un_employ"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/fname"
+                style="@style/input_style"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/pr_nom"
+                android:importantForAutofill="no"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/lname"
+                style="@style/input_style"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/nom"
+                android:importantForAutofill="no"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/username"
+                style="@style/input_style"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/nom_d_utilisateur"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/mot_de_pass"
+                style="@style/input_style"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/hint_password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUpdate"
+                style="@style/login"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="18dp"
+                android:onClick="modifierEmployee"
+                android:text="@string/enregistrer_les_modifications" />
+
+        </LinearLayout>
+
+        <!-- Bonus 3 -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBackHome"
+            style="@style/logout"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="24dp"
+            android:onClick="retourAccueil"
+            android:text="@string/retour_accueil" />
+
+    </LinearLayout>
+
+</ScrollView>

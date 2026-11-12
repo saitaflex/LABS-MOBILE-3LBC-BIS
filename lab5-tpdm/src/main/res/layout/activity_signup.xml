@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pink"
+    android:fillViewport="true"
+    tools:context=".SignupActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/bienvenue_s"
+            android:src="@drawable/img" />
+
+        <TextView
+            android:id="@+id/bienvenue_s"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/bienvenue_s"
+            android:textAppearance="@style/bienvenue_s" />
+
+        <!-- First name and last name share one row thanks to layout_weight -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="23dp"
+            android:paddingEnd="23dp">
+
+            <EditText
+                android:id="@+id/fname"
+                style="@style/input_style"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:autofillHints="personGivenName"
+                android:hint="@string/pr_nom"
+                android:inputType="textPersonName|textCapWords" />
+
+            <EditText
+                android:id="@+id/lname"
+                style="@style/input_style"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:autofillHints="personFamilyName"
+                android:hint="@string/nom"
+                android:inputType="textPersonName|textCapWords" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="23dp"
+            android:paddingEnd="23dp">
+
+            <EditText
+                android:id="@+id/username"
+                style="@style/input_style"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:autofillHints="newUsername"
+                android:hint="@string/hint_username"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/cin"
+                style="@style/input_style"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:hint="@string/hint_cin"
+                android:importantForAutofill="no"
+                android:inputType="textCapCharacters" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/mot_de_pass"
+            style="@style/input_style"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="23dp"
+            android:autofillHints="newPassword"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword" />
+
+        <!-- Entries are set in SignupActivity from @array/roles or @array/roles_public -->
+        <Spinner
+            android:id="@+id/role"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="23dp"
+            android:background="@drawable/bg_light_button"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
+
+        <TextView
+            android:id="@+id/mot_de_passe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="23dp"
+            android:onClick="gotoSignin"
+            android:text="@string/acceder_a_votre_compte"
+            android:textAppearance="@style/signup" />
+
+        <!-- Bonus 1: dedicated "Sign up" label (s_inscrire) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn"
+            style="@style/login"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="23dp"
+            android:onClick="signup"
+            android:text="@string/s_inscrire" />
+
+        <TextView
+            android:id="@+id/txtformval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/error"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+</ScrollView>

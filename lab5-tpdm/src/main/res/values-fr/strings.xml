@@ -1,0 +1,52 @@
+<resources>
+    <string name="bienvenue_s">Bienvenue à ESPRIT School</string>
+    <string name="connectez_vous">Connectez-vous à votre compte</string>
+    <string name="mot_de_passe">Mot de passe oublié</string>
+    <string name="login">Se connecter</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="creer_un_compte"><u>Créer un compte</u></string>
+    <string name="acceder_a_votre_compte">Déjà inscrit ? Se connecter</string>
+    <string name="hint_username">Nom d\'utilisateur</string>
+    <string name="hint_password">Mot de passe</string>
+    <string name="hint_cin">CIN</string>
+    <string name="pr_nom">Prénom</string>
+    <string name="nom">Nom</string>
+    <string name="nom_d_utilisateur">Nom d\'utilisateur</string>
+
+    <string name="bienvenue_utilisateur">Bienvenue, %1$s</string>
+    <string name="voir_les_utilisateurs">Voir les utilisateurs</string>
+    <string name="creer_un_utilisateur">Créer un utilisateur</string>
+    <string name="se_deconnecter">Se déconnecter</string>
+
+    <string name="title_activity_users_list">Liste des employés</string>
+    <string name="gestion_des_employes">Gestion des employés</string>
+    <string name="total_employes">TOTAL DES EMPLOYÉS</string>
+    <string name="liste_des_employ_s">Liste des employés</string>
+    <string name="rechercher_par_prenom">Rechercher par prénom</string>
+    <string name="aucun_employ_trouv">Aucun employé trouvé</string>
+    <string name="cin_choisir_un_employ">CIN (choisir un employé)</string>
+    <string name="modifier_un_employ">Modifier un employé</string>
+    <string name="enregistrer_les_modifications">Enregistrer les modifications</string>
+    <string name="retour_accueil">Retour à l\'accueil</string>
+    <string name="modifier">Modifier</string>
+    <string name="supprimer">Supprimer</string>
+    <string name="carte_infos">%1$s • CIN : %2$s</string>
+    <string name="nom_complet">%1$s %2$s</string>
+
+    <string name="confirmer_suppression_titre">Supprimer l\'employé</string>
+    <string name="confirmer_suppression_message">Voulez-vous vraiment supprimer ?</string>
+    <string name="annuler">Annuler</string>
+
+    <string name="erreur_champs_vides">Veuillez remplir tous les champs</string>
+    <string name="erreur_identifiants">Nom d\'utilisateur ou mot de passe incorrect !</string>
+    <string name="erreur_acces_admin">Accès réservé aux administrateurs !</string>
+    <string name="erreur_role">Veuillez choisir un rôle</string>
+    <string name="erreur_role_admin_interdit">Seul un administrateur peut créer un compte Admin</string>
+    <string name="erreur_utilisateur_existe">Ce nom d\'utilisateur existe déjà</string>
+    <string name="erreur_inscription">Échec de l\'inscription</string>
+    <string name="utilisateur_cree">Utilisateur créé avec succès</string>
+    <string name="selectionner_un_employe">Sélectionnez un employé dans la liste</string>
+    <string name="employe_modifie">Employé modifié avec succès</string>
+    <string name="employe_supprime">Employé supprimé avec succès</string>
+    <string name="employe_introuvable">Employé introuvable</string>
+</resources>

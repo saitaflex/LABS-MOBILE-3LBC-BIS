@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name" translatable="false">TPDM</string>
+
+    <!-- Sign-in / registration -->
+    <string name="bienvenue_s">Welcome to ESPRIT School</string>
+    <string name="connectez_vous">Sign in to your account</string>
+    <string name="mot_de_passe">Forgot password</string>
+    <string name="login">Sign in</string>
+    <string name="s_inscrire">Sign up</string>
+    <string name="creer_un_compte"><u>Create an account</u></string>
+    <string name="acceder_a_votre_compte">Already registered? Sign in</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_cin">CIN</string>
+    <string name="pr_nom">First name</string>
+    <string name="nom">Last name</string>
+    <string name="nom_d_utilisateur">Username</string>
+
+    <!-- Admin home -->
+    <string name="bienvenue_utilisateur">Welcome, %1$s</string>
+    <string name="voir_les_utilisateurs">View users</string>
+    <string name="creer_un_utilisateur">Create a user</string>
+    <string name="se_deconnecter">Sign out</string>
+
+    <!-- Employee list -->
+    <string name="title_activity_users_list">Employee list</string>
+    <string name="gestion_des_employes">Employee management</string>
+    <string name="total_employes">TOTAL EMPLOYEES</string>
+    <string name="liste_des_employ_s">Employee list</string>
+    <string name="rechercher_par_prenom">Search by first name</string>
+    <string name="aucun_employ_trouv">No employees found</string>
+    <string name="cin_choisir_un_employ">CIN (select an employee)</string>
+    <string name="modifier_un_employ">Edit an employee</string>
+    <string name="enregistrer_les_modifications">Save changes</string>
+    <string name="retour_accueil">Back to Home</string>
+    <string name="modifier">Edit</string>
+    <string name="supprimer">Delete</string>
+    <string name="carte_infos">%1$s • CIN: %2$s</string>
+    <string name="nom_complet">%1$s %2$s</string>
+
+    <!-- Delete confirmation -->
+    <string name="confirmer_suppression_titre">Delete employee</string>
+    <string name="confirmer_suppression_message">Are you sure you want to delete?</string>
+    <string name="annuler">Cancel</string>
+
+    <!-- Validation and feedback messages -->
+    <string name="erreur_champs_vides">Please fill in all fields</string>
+    <string name="erreur_identifiants">Incorrect username or password!</string>
+    <string name="erreur_acces_admin">Access is restricted to administrators!</string>
+    <string name="erreur_role">Please select a role</string>
+    <string name="erreur_role_admin_interdit">Only an administrator can create an Admin account</string>
+    <string name="erreur_utilisateur_existe">This username already exists</string>
+    <string name="erreur_inscription">Registration failed</string>
+    <string name="utilisateur_cree">User created successfully</string>
+    <string name="selectionner_un_employe">Select an employee from the list</string>
+    <string name="employe_modifie">Employee updated successfully</string>
+    <string name="employe_supprime">Employee deleted successfully</string>
+    <string name="employe_introuvable">Employee not found</string>
+</resources>

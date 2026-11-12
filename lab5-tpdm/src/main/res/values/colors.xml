@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ESB graphic charter -->
+    <color name="red">#9A1F31</color>
+    <color name="pink">#FFE2E5</color>
+
+    <color name="input_background">#F4F4F4</color>
+    <color name="light_button_background">#F2F1F1</color>
+    <color name="hint">#999999</color>
+    <color name="error">#D32F2F</color>
+
+    <!-- Employee list screen -->
+    <color name="list_background">#F7F4FA</color>
+    <color name="list_title">#302044</color>
+    <color name="list_secondary">#898196</color>
+    <color name="list_accent">#7146A6</color>
+    <color name="delete">#C62828</color>
+</resources>
