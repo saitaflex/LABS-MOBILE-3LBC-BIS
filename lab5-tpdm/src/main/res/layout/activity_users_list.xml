@@ -177,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:hint="@string/hint_password"
+                android:hint="@string/hint_mot_de_passe_optionnel"
                 android:importantForAutofill="no"
                 android:inputType="textPassword" />
 

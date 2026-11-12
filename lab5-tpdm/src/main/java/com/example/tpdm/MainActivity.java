@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String DEFAULT_ADMIN_CIN = "AB123456";
 
     private UserDB userdb1;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +37,24 @@ public class MainActivity extends AppCompatActivity {
         userdb1 = new UserDB(this);
         userdb1.open();
         createDefaultAdmin();
+
+        // Stay signed in: skip the form if an administrator session is still valid.
+        session = new SessionManager(this);
+        String savedUser = session.getUsername();
+        if (savedUser != null) {
+            if (User.ROLE_ADMIN.equalsIgnoreCase(userdb1.getUserRole(savedUser))) {
+                openHome(savedUser);
+            } else {
+                session.signOut(); // account deleted or no longer an administrator
+            }
+        }
     }
 
-    /** insertUser returns -1 when the CIN already exists, so later launches change nothing. */
+    /** Runs on every launch but only inserts the first time. */
     private void createDefaultAdmin() {
+        if (userdb1.usernameExists(DEFAULT_ADMIN_USERNAME, null)) {
+            return;
+        }
         userdb1.insertUser(new User(DEFAULT_ADMIN_USERNAME, "Test", "User",
                 DEFAULT_ADMIN_CIN, DEFAULT_ADMIN_PASSWORD, User.ROLE_ADMIN));
     }
@@ -58,11 +73,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        User u1 = new User();
-        u1.setUsername(userstr);
-        u1.setPwd(pwdstr);
-
-        if (userdb1.getUserWithLog(u1) == 0) {
+        if (!userdb1.checkCredentials(userstr, pwdstr)) {
             txtformvaljava.setText(R.string.erreur_identifiants);
             return;
         }
@@ -73,8 +84,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        session.signIn(userstr);
+        openHome(userstr);
+    }
+
+    private void openHome(String username) {
         Intent homeactivity = new Intent(MainActivity.this, HomeActivity.class);
-        homeactivity.putExtra(HomeActivity.EXTRA_USER, userstr);
+        homeactivity.putExtra(HomeActivity.EXTRA_USER, username);
         startActivity(homeactivity);
         finish();
     }
@@ -84,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
         Intent signup = new Intent(MainActivity.this, SignupActivity.class);
         startActivity(signup);
         finish();
+    }
+
+    /** Called by the "Forgot password" link. Sign-in stays below, so Back returns here. */
+    public void gotoResetPassword(View view) {
+        startActivity(new Intent(MainActivity.this, ResetPasswordActivity.class));
     }
 
     @Override

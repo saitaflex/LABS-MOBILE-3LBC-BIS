@@ -1,6 +1,8 @@
 package com.example.tpdm;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -9,6 +11,10 @@ import androidx.annotation.Nullable;
 /**
  * Creates and upgrades the SQLite schema.
  * The table and column names live here only, so UserDB and the screens share one definition.
+ *
+ * Version history:
+ * 1 - passwords stored in clear text (original lab).
+ * 2 - passwords stored as salted hashes (see PasswordHasher).
  */
 public class SetupSqliteDB extends SQLiteOpenHelper {
 
@@ -39,9 +45,27 @@ public class SetupSqliteDB extends SQLiteOpenHelper {
         db.execSQL(CREATE_DB);
     }
 
+    /** Migrates step by step and keeps the existing users (no DROP TABLE). */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        onCreate(db);
+        if (oldVersion < 2) {
+            hashExistingPasswords(db);
+        }
+    }
+
+    private void hashExistingPasswords(SQLiteDatabase db) {
+        try (Cursor c = db.query(TABLE_USER, new String[]{COL_ID, COL_PASSWORD},
+                null, null, null, null, null)) {
+            while (c.moveToNext()) {
+                String cin = c.getString(0);
+                String password = c.getString(1);
+                if (PasswordHasher.isHashed(password)) {
+                    continue;
+                }
+                ContentValues values = new ContentValues();
+                values.put(COL_PASSWORD, PasswordHasher.hash(password));
+                db.update(TABLE_USER, values, COL_ID + "=?", new String[]{cin});
+            }
+        }
     }
 }

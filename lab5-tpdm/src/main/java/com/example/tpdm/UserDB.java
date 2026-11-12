@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.Nullable;
@@ -22,17 +23,23 @@ import java.util.List;
 /**
  * Data access class: every SQL operation on users goes through here.
  * User input is always passed through "?" placeholders, never concatenated (SQL injection).
+ * Passwords are hashed before they are written (see PasswordHasher).
  */
 public class UserDB {
 
-    private static final int VERSION_DB = 1;
+    private static final int VERSION_DB = 2;
     private static final String DB_NAME = "Bis.db";
 
     private SQLiteDatabase db;
     private final SetupSqliteDB mydb;
 
     public UserDB(Context context) {
-        mydb = new SetupSqliteDB(context.getApplicationContext(), DB_NAME, null, VERSION_DB);
+        this(context, DB_NAME);
+    }
+
+    /** @param dbName database file name; null creates an in-memory database (used by tests). */
+    UserDB(Context context, @Nullable String dbName) {
+        mydb = new SetupSqliteDB(context.getApplicationContext(), dbName, null, VERSION_DB);
     }
 
     public void open() {
@@ -40,12 +47,14 @@ public class UserDB {
     }
 
     public void close() {
-        db.close();
+        mydb.close();
     }
 
     public SQLiteDatabase getDB() {
         return db;
     }
+
+    // ===================== CREATE =====================
 
     /** @return the new row id, or -1 if the insertion failed (for example CIN already used). */
     public long insertUser(User user) {
@@ -54,23 +63,28 @@ public class UserDB {
         values.put(COL_FNAME, user.getFname());
         values.put(COL_LNAME, user.getLname());
         values.put(COL_USER, user.getUsername());
-        values.put(COL_PASSWORD, user.getPwd());
+        values.put(COL_PASSWORD, PasswordHasher.hash(user.getPwd()));
         values.put(COL_ROLE, user.getRole());
-        // CONFLICT_NONE behaves like insert() but reports a duplicate CIN with -1
-        // instead of logging a stack trace.
         try {
+            // Like insert(), but a duplicate CIN is reported with -1 without logging a stack trace.
             return db.insertWithOnConflict(TABLE_USER, null, values, SQLiteDatabase.CONFLICT_NONE);
-        } catch (android.database.SQLException e) {
+        } catch (SQLException e) {
             return -1;
         }
     }
 
-    /** @return the number of users matching this username / password pair. */
-    public int getUserWithLog(User user) {
-        try (Cursor c = db.rawQuery(
-                "SELECT * FROM " + TABLE_USER + " WHERE " + COL_USER + " = ? AND " + COL_PASSWORD + " = ?",
-                new String[]{user.getUsername(), user.getPwd()})) {
-            return c.getCount();
+    // ===================== READ =====================
+
+    /** @return true if this username exists and the password matches its stored hash. */
+    public boolean checkCredentials(String username, String password) {
+        try (Cursor c = db.query(TABLE_USER, new String[]{COL_PASSWORD},
+                COL_USER + "=?", new String[]{username}, null, null, null)) {
+            while (c.moveToNext()) {
+                if (PasswordHasher.verify(password, c.getString(0))) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -91,14 +105,8 @@ public class UserDB {
     /** @return the role of this username, or null if it does not exist. */
     @Nullable
     public String getUserRole(String username) {
-        try (Cursor cursor = db.query(
-                TABLE_USER,
-                new String[]{COL_ROLE},
-                COL_USER + "=?",
-                new String[]{username},
-                null,
-                null,
-                null)) {
+        try (Cursor cursor = db.query(TABLE_USER, new String[]{COL_ROLE},
+                COL_USER + "=?", new String[]{username}, null, null, null)) {
             if (cursor.moveToFirst()) {
                 return cursor.getString(cursor.getColumnIndexOrThrow(COL_ROLE));
             }
@@ -106,46 +114,38 @@ public class UserDB {
         }
     }
 
-    public Cursor getAllEmployees() {
-        return db.query(
-                TABLE_USER,
-                null,
-                COL_ROLE + "=?",
-                new String[]{User.ROLE_EMPLOYEE},
-                null,
-                null,
-                COL_FNAME + " ASC");
+    public long countByRole(String role) {
+        return DatabaseUtils.queryNumEntries(db, TABLE_USER, COL_ROLE + "=?", new String[]{role});
     }
 
     public long countEmployees() {
-        return DatabaseUtils.queryNumEntries(db, TABLE_USER,
-                COL_ROLE + "=?", new String[]{User.ROLE_EMPLOYEE});
+        return countByRole(User.ROLE_EMPLOYEE);
     }
 
     /**
      * Employees sorted by first name, copied out of the Cursor so it can be closed right away.
+     * The password hash is deliberately not loaded: no screen needs it.
      *
      * @param firstNameFilter keeps only first names containing this text; empty = everyone.
      */
     public List<User> getEmployees(String firstNameFilter) {
+        String selection = COL_ROLE + "=?";
+        String[] args = new String[]{User.ROLE_EMPLOYEE};
+        if (!firstNameFilter.isEmpty()) {
+            selection += " AND " + COL_FNAME + " LIKE ?";
+            args = new String[]{User.ROLE_EMPLOYEE, "%" + firstNameFilter + "%"};
+        }
+
         List<User> employees = new ArrayList<>();
-        try (Cursor cursor = firstNameFilter.isEmpty()
-                ? getAllEmployees()
-                : db.query(
-                        TABLE_USER,
-                        null,
-                        COL_ROLE + "=? AND " + COL_FNAME + " LIKE ?",
-                        new String[]{User.ROLE_EMPLOYEE, "%" + firstNameFilter + "%"},
-                        null,
-                        null,
-                        COL_FNAME + " ASC")) {
+        try (Cursor cursor = db.query(TABLE_USER,
+                new String[]{COL_ID, COL_FNAME, COL_LNAME, COL_USER},
+                selection, args, null, null, COL_FNAME + " COLLATE NOCASE ASC")) {
             while (cursor.moveToNext()) {
                 User u = new User();
                 u.setCin(cursor.getString(cursor.getColumnIndexOrThrow(COL_ID)));
                 u.setFname(cursor.getString(cursor.getColumnIndexOrThrow(COL_FNAME)));
                 u.setLname(cursor.getString(cursor.getColumnIndexOrThrow(COL_LNAME)));
                 u.setUsername(cursor.getString(cursor.getColumnIndexOrThrow(COL_USER)));
-                u.setPwd(cursor.getString(cursor.getColumnIndexOrThrow(COL_PASSWORD)));
                 u.setRole(User.ROLE_EMPLOYEE);
                 employees.add(u);
             }
@@ -153,18 +153,41 @@ public class UserDB {
         return employees;
     }
 
-    /** @return the number of rows updated (0 = employee not found). */
+    // ===================== UPDATE =====================
+
+    /**
+     * Updates an employee. The password only changes when a new one is provided.
+     *
+     * @return the number of rows updated (0 = employee not found).
+     */
     public int updateEmployee(String cin, User user) {
         ContentValues values = new ContentValues();
         values.put(COL_FNAME, user.getFname());
         values.put(COL_LNAME, user.getLname());
         values.put(COL_USER, user.getUsername());
-        values.put(COL_PASSWORD, user.getPwd());
+        if (user.getPwd() != null && !user.getPwd().isEmpty()) {
+            values.put(COL_PASSWORD, PasswordHasher.hash(user.getPwd()));
+        }
 
         return db.update(TABLE_USER, values,
                 COL_ID + "=? AND " + COL_ROLE + "=?",
                 new String[]{cin, User.ROLE_EMPLOYEE});
     }
+
+    /**
+     * Sets a new password for the account matching both the username and the CIN.
+     *
+     * @return the number of rows updated (0 = no such username / CIN pair).
+     */
+    public int resetPassword(String username, String cin, String newPassword) {
+        ContentValues values = new ContentValues();
+        values.put(COL_PASSWORD, PasswordHasher.hash(newPassword));
+        return db.update(TABLE_USER, values,
+                COL_USER + "=? AND " + COL_ID + "=?",
+                new String[]{username, cin});
+    }
+
+    // ===================== DELETE =====================
 
     /** @return the number of rows deleted (0 = employee not found). */
     public int deleteEmployee(String cin) {

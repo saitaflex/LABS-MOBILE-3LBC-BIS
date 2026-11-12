@@ -30,6 +30,16 @@
             android:textAppearance="@style/bienvenue_s"
             tools:text="Welcome, admin" />
 
+        <!-- Live counters, refreshed in HomeActivity.onResume -->
+        <TextView
+            android:id="@+id/txtStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/connectez_v"
+            tools:text="Employees: 3 • Administrators: 1" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

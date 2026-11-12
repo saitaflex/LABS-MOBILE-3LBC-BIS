@@ -138,7 +138,8 @@ public class UsersListActivity extends AppCompatActivity {
             fnameEdit.setText(u.getFname());
             lnameEdit.setText(u.getLname());
             usernameEdit.setText(u.getUsername());
-            passwordEdit.setText(u.getPwd());
+            // Passwords are hashed and cannot be shown: leaving the field empty keeps the current one.
+            passwordEdit.setText("");
         });
 
         btnSupprimer.setOnClickListener(v -> confirmerSuppression(u));
@@ -163,8 +164,14 @@ public class UsersListActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.selectionner_un_employe, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (fname.isEmpty() || lname.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()) {
             Toast.makeText(this, R.string.erreur_champs_vides, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // The password is optional here: empty means "keep the current password".
+        if (!password.isEmpty() && !Validator.isValidPassword(password)) {
+            Toast.makeText(this, getString(R.string.erreur_mot_de_passe_court,
+                    Validator.MIN_PASSWORD_LENGTH), Toast.LENGTH_SHORT).show();
             return;
         }
         if (userdb1.usernameExists(username, cin)) {

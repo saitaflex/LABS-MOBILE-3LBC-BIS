@@ -15,6 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Locale;
+
 /**
  * Registration screen.
  * Opened from sign-in it only creates Employee accounts; opened by a signed-in
@@ -71,7 +73,7 @@ public class SignupActivity extends AppCompatActivity {
 
         String fnamestr = fnameEdit.getText().toString().trim();
         String lnamestr = lnameEdit.getText().toString().trim();
-        String cinstr = cinEdit.getText().toString().trim();
+        String cinstr = cinEdit.getText().toString().trim().toUpperCase(Locale.ROOT);
         String usernamestr = usernameEdit.getText().toString().trim();
         String pwdstr = passwordEdit.getText().toString().trim();
         Object selectedRole = roleSpinner.getSelectedItem();
@@ -80,6 +82,17 @@ public class SignupActivity extends AppCompatActivity {
         if (fnamestr.isEmpty() || lnamestr.isEmpty() || cinstr.isEmpty()
                 || usernamestr.isEmpty() || pwdstr.isEmpty()) {
             txtformat.setText(R.string.erreur_champs_vides);
+            return;
+        }
+
+        if (!Validator.isValidCin(cinstr)) {
+            txtformat.setText(getString(R.string.erreur_cin_invalide, Validator.CIN_LENGTH));
+            return;
+        }
+
+        if (!Validator.isValidPassword(pwdstr)) {
+            txtformat.setText(getString(R.string.erreur_mot_de_passe_court,
+                    Validator.MIN_PASSWORD_LENGTH));
             return;
         }
 

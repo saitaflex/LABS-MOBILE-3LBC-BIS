@@ -17,6 +17,9 @@ public class HomeActivity extends AppCompatActivity {
     /** Intent extra carrying the username of the signed-in administrator. */
     public static final String EXTRA_USER = "user";
 
+    private UserDB userdb1;
+    private TextView txtStats;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +31,28 @@ public class HomeActivity extends AppCompatActivity {
             return insets;
         });
 
+        userdb1 = new UserDB(this);
+        userdb1.open();
+        txtStats = findViewById(R.id.txtStats);
+
         // Bonus 2: welcome message built from the extra sent by MainActivity.
         String user = getIntent().getStringExtra(EXTRA_USER);
         TextView txtWelcome = findViewById(R.id.txtWelcome);
         txtWelcome.setText(getString(R.string.bienvenue_utilisateur, user == null ? "" : user));
     }
 
-    /** Sign out: Home is finished so Back cannot reopen it. */
+    /** onResume runs every time the screen comes back, so the counters are always fresh. */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        txtStats.setText(getString(R.string.statistiques,
+                userdb1.countByRole(User.ROLE_EMPLOYEE),
+                userdb1.countByRole(User.ROLE_ADMIN)));
+    }
+
+    /** Sign out: the session is cleared and Home is finished so Back cannot reopen it. */
     public void gotosignin(View view) {
+        new SessionManager(this).signOut();
         Intent signin = new Intent(HomeActivity.this, MainActivity.class);
         startActivity(signin);
         finish();
@@ -52,5 +69,11 @@ public class HomeActivity extends AppCompatActivity {
         Intent signup = new Intent(HomeActivity.this, SignupActivity.class);
         signup.putExtra(SignupActivity.EXTRA_FROM_ADMIN, true);
         startActivity(signup);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (userdb1 != null) userdb1.close();
     }
 }

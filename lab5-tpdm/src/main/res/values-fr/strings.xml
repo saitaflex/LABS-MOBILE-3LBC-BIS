@@ -49,4 +49,19 @@
     <string name="employe_modifie">Employé modifié avec succès</string>
     <string name="employe_supprime">Employé supprimé avec succès</string>
     <string name="employe_introuvable">Employé introuvable</string>
+    <string name="erreur_cin_invalide">Le CIN doit contenir exactement %1$d lettres ou chiffres</string>
+    <string name="erreur_mot_de_passe_court">Le mot de passe doit contenir au moins %1$d caractères</string>
+
+    <string name="statistiques">Employés : %1$d • Administrateurs : %2$d</string>
+
+    <string name="reinitialiser_titre">Réinitialiser le mot de passe</string>
+    <string name="reinitialiser_aide">Saisissez votre nom d\'utilisateur et votre CIN, puis choisissez un nouveau mot de passe</string>
+    <string name="hint_nouveau_mot_de_passe">Nouveau mot de passe</string>
+    <string name="hint_confirmer_mot_de_passe">Confirmer le nouveau mot de passe</string>
+    <string name="hint_mot_de_passe_optionnel">Nouveau mot de passe (vide = inchangé)</string>
+    <string name="reinitialiser">Réinitialiser</string>
+    <string name="retour_connexion">Retour à la connexion</string>
+    <string name="erreur_confirmation">Les deux mots de passe ne correspondent pas</string>
+    <string name="erreur_compte_introuvable">Aucun compte ne correspond à ce nom d\'utilisateur et ce CIN</string>
+    <string name="mot_de_passe_modifie">Mot de passe modifié, vous pouvez vous connecter</string>
 </resources>
