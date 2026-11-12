@@ -1,0 +1,16 @@
+<resources>
+    <string name="logo_description">Logo ESPRIT School of Business</string>
+    <string name="welcome">Bienvenue à ESPRIT School</string>
+    <string name="sign_in_to_account">Connectez-vous à votre compte</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="forgot_password">Mot de passe oublié ?</string>
+    <string name="connect">Se connecter</string>
+
+    <string name="error_username_required">Le nom d\'utilisateur est obligatoire</string>
+    <string name="error_password_required">Le mot de passe est obligatoire</string>
+    <string name="error_invalid_credentials">Nom d\'utilisateur ou mot de passe incorrect</string>
+
+    <string name="dashboard_welcome">Bienvenue, %1$s</string>
+    <string name="logout">Se déconnecter</string>
+</resources>

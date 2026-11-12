@@ -1,0 +1,16 @@
+<resources>
+    <string name="logo_description">شعار ESPRIT School of Business</string>
+    <string name="welcome">مرحبا بكم في ESPRIT School</string>
+    <string name="sign_in_to_account">سجّل الدخول إلى حسابك</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    <string name="connect">دخول</string>
+
+    <string name="error_username_required">اسم المستخدم مطلوب</string>
+    <string name="error_password_required">كلمة المرور مطلوبة</string>
+    <string name="error_invalid_credentials">اسم المستخدم أو كلمة المرور غير صحيحة</string>
+
+    <string name="dashboard_welcome">مرحبا، %1$s</string>
+    <string name="logout">تسجيل الخروج</string>
+</resources>

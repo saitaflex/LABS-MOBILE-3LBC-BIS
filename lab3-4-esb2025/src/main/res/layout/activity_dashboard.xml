@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pink"
+    android:orientation="vertical"
+    tools:context=".Dashboard">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/esb_header" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold"
+        tools:text="Welcome, Admin" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="@dimen/screen_margin"
+        android:background="@drawable/btnstyle"
+        android:text="@string/logout"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_text_size" />
+
+</LinearLayout>

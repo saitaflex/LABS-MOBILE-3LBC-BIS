@@ -1,0 +1,5 @@
+<resources>
+    <style name="Base.Theme.ESB2025" parent="Theme.Material3.Light.NoActionBar" />
+
+    <style name="Theme.ESB2025" parent="Base.Theme.ESB2025" />
+</resources>
