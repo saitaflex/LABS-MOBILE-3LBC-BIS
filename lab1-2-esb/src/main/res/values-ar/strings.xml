@@ -1,0 +1,15 @@
+<resources>
+    <string name="hello_word">مرحبا بالعالم!</string>
+
+    <string name="prenom">الاسم</string>
+    <string name="nom">اللقب</string>
+    <string name="date_naissance">تاريخ الميلاد</string>
+    <string name="ville_naissance">مكان الميلاد</string>
+    <string name="hint_date">يوم/شهر/سنة</string>
+    <string name="valider">تأكيد</string>
+
+    <string name="error_fill_all_fields">يرجى ملء جميع الحقول</string>
+    <string name="summary_title">ملخص</string>
+    <string name="summary_message">الاسم: %1$s\nاللقب: %2$s\nتاريخ الميلاد: %3$s\nمكان الميلاد: %4$s</string>
+    <string name="ok">موافق</string>
+</resources>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="hello_word">Bonjour le monde !</string>
+
+    <string name="prenom">Prénom</string>
+    <string name="nom">Nom</string>
+    <string name="date_naissance">Date de naissance</string>
+    <string name="ville_naissance">Ville de naissance</string>
+    <string name="hint_date">JJ/MM/AAAA</string>
+    <string name="valider">Valider</string>
+
+    <string name="error_fill_all_fields">Veuillez remplir tous les champs</string>
+    <string name="summary_title">Récapitulatif</string>
+    <string name="summary_message">Prénom : %1$s\nNom : %2$s\nDate de naissance : %3$s\nVille de naissance : %4$s</string>
+    <string name="ok">OK</string>
+</resources>

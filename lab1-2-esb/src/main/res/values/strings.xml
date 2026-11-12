@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name" translatable="false">ESB</string>
+
+    <!-- LAB 2, part 1: text moved out of the layout into resources -->
+    <string name="hello_word">Hello World!</string>
+
+    <!-- LAB 2, part 2: identity form -->
+    <string name="prenom">First name</string>
+    <string name="nom">Last name</string>
+    <string name="date_naissance">Date of birth</string>
+    <string name="ville_naissance">City of birth</string>
+    <string name="hint_date">DD/MM/YYYY</string>
+    <string name="valider">Validate</string>
+
+    <!-- Pop-up messages -->
+    <string name="error_fill_all_fields">Please fill in all fields</string>
+    <string name="summary_title">Summary</string>
+    <string name="summary_message">First name: %1$s\nLast name: %2$s\nDate of birth: %3$s\nCity of birth: %4$s</string>
+    <string name="ok">OK</string>
+</resources>
